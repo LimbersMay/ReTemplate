@@ -6,8 +6,8 @@
 
 ## Glosario
 
-| Término | Qué significa |
-|---|---|
+| Término | En el código | Qué significa |
+|---|---|---|
 
 ## Estados
 
