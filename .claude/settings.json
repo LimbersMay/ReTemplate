@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run check)",
+      "Bash(npm run build)",
+      "Bash(npm run build:extension)",
+      "Bash(npm run lint)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run test:once)",
+      "Bash(npm run test:once:*)",
+      "Bash(npm run trace)",
+      "Bash(npm run trace:*)",
+      "Bash(npm run status)",
+      "Bash(npx ng test:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/status.mjs"
+          }
+        ]
+      }
+    ]
+  }
+}

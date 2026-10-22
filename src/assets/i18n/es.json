@@ -1,0 +1,9 @@
+{
+  "app": {
+    "name": "__PRODUCT__",
+    "empty": {
+      "title": "Todo listo para empezar",
+      "text": "La primera vista llega con el primer slice del roadmap."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<ng-container *transloco="let t; prefix: 'app'">
+  <header class="re-header">
+    <div class="re-header__brand">
+      <div class="re-header__logo"><ng-icon name="lucideBox" size="13" /></div>
+      <span class="re-header__title">{{ t('name') }}</span>
+    </div>
+  </header>
+
+  <main class="flex flex-1 items-center justify-center">
+    <div class="re-empty">
+      <div class="re-empty__icon"><ng-icon name="lucideSprout" size="18" /></div>
+      <p class="re-empty__title">{{ t('empty.title') }}</p>
+      <p class="re-empty__text">{{ t('empty.text') }}</p>
+    </div>
+  </main>
+</ng-container>

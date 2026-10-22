@@ -1,0 +1,28 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      REDESIGN_TOKEN: ${{ secrets.REDESIGN_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      # re-design comes from GitHub; a private ReDesign repo needs a read token.
+      - name: Allow access to ReDesign
+        if: ${{ env.REDESIGN_TOKEN != '' }}
+        run: git config --global url."https://x-access-token:${REDESIGN_TOKEN}@github.com/".insteadOf "https://github.com/"
+      - run: npm ci
+      # Only in re-template itself: the placeholders need a real brand to build, so CI tests init too.
+      - name: Initialize the template
+        if: ${{ hashFiles('TEMPLATE.md') != '' }}
+        run: node scripts/init.mjs --name ReSession --description "Template check" --slug resession
+      - run: npm run check
