@@ -79,7 +79,7 @@ process.stdout.write(
     'Siguiente:',
     '  1. Copia el material de partida (requisitos, mocks) a docs/inbox/.',
     '  2. npm run check',
-    '  3. En Claude Code: /re-sdd:sdd-discover',
+    '  3. En Claude Code: /sdd:discover',
     '',
   ].join('\n'),
 );

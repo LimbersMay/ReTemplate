@@ -3,7 +3,7 @@
 // describe/it names cite them (docs/standards/testing/README.md › Trazabilidad).
 //
 //   npm run trace                          every requirement
-//   npm run trace -- --ids PAU-01,PRT-05   only these (what sdd-verify uses for a slice)
+//   npm run trace -- --ids PAU-01,PRT-05   only these (what /sdd:verify uses for a slice)
 //   npm run trace -- --strict              exits 1 if a Must requirement has no test
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';

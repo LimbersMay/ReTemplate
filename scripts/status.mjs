@@ -56,7 +56,7 @@ try {
   if (branch !== null) {
     const changed = (git('status', '--porcelain') ?? '').split('\n').filter(Boolean).length;
     out.push(`Rama: ${branch || '(sin rama)'}${changed > 0 ? ` · ${changed} archivos sin commitear` : ''}`);
-    if (branch === 'main' && changed > 0) out.push('  En main no se commitea: /re-git:commit los lleva a una rama');
+    if (branch === 'main' && changed > 0) out.push('  En main no se commitea: /git:commit los lleva a una rama');
   }
 
   const pending = PHASE_0.filter((file) => read(join('docs', file)).includes(PENDING));
@@ -64,8 +64,8 @@ try {
     out.push(`Fase 0 · pendientes: ${pending.join(', ')}`);
     const discovering = pending.includes('product.md') || pending.includes('requirements.md');
     if (discovering && read('docs/discovery.md')) out.push('Descubrimiento en curso: docs/discovery.md');
-    if (discovering) out.push('Siguiente: /re-sdd:sdd-discover');
-    else out.push('Siguiente: /re-sdd:sdd-design');
+    if (discovering) out.push('Siguiente: /sdd:discover');
+    else out.push('Siguiente: /sdd:design');
   }
 
   const slices = tableRows(read('docs/roadmap.md'));
@@ -84,7 +84,7 @@ try {
     for (const row of open) out.push(`  ${row[0]} ${row[1]} · ${row[2]} · ${row[3]}`);
     const handoff = section(tasks, 'Dónde lo dejé');
     if (handoff) out.push(`Dónde lo dejé:\n${handoff}`);
-    if (!folder) out.push(`Siguiente: /re-sdd:sdd-slice ${current[0]}`);
+    if (!folder) out.push(`Siguiente: /sdd:slice ${current[0]}`);
   }
 
   const defects = knownDefects();
