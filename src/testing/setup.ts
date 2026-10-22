@@ -1,4 +1,4 @@
-// Global cleanup after every test, so specs never repeat it (docs/testing.md §5).
+// Global cleanup after every test, so specs never repeat it (docs/standards/testing/writing.md › Globales).
 afterEach(() => {
   vi.unstubAllGlobals();
   vi.restoreAllMocks();

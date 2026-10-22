@@ -31,5 +31,5 @@ npm run status  # dónde va el proyecto
 | Cómo está hecho | [docs/architecture.md](docs/architecture.md) |
 | Pantallas | [docs/ux.md](docs/ux.md) |
 | Qué falta | [docs/roadmap.md](docs/roadmap.md) |
-| Cómo se testea | [docs/testing.md](docs/testing.md) |
+| Cómo se escribe el código | [docs/standards/](docs/standards/) |
 | Cómo trabajan los agentes | [AGENTS.md](AGENTS.md) |

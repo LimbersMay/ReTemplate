@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { NgIcon } from '@ng-icons/core';
 
@@ -8,5 +8,6 @@ import { NgIcon } from '@ng-icons/core';
   imports: [TranslocoDirective, NgIcon],
   templateUrl: './app.html',
   host: { class: 're-app' },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {}

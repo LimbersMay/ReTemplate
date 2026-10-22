@@ -2,24 +2,45 @@
 
 __DESCRIPTION__
 
-## Diseño
+Este archivo se carga en cada sesión. Por eso solo tiene lo que no se negocia y dónde está lo demás: las
+normas completas viven en `docs/standards/` y se leen cuando tocan.
 
-Este producto sigue **ReDesign** (`node_modules/re-design`, versión fijada en `package.json`).
+## Lo que no se negocia
 
-1. Antes de tocar interfaz, lee `node_modules/re-design/AGENTS.md` y
-   `node_modules/re-design/docs/products/__SLUG__.md`.
-2. Usa las clases `re-*` de `components.css` para los componentes y Tailwind solo para el layout.
-3. No edites `node_modules/re-design` ni copies sus archivos aquí. Si falta algo, anótalo como
-   Propuesta en el doc del producto y avisa.
-4. Antes de terminar: `npm run lint:design` con 0 errores.
+1. **Nada de código sin tarea, y nada de tarea sin requisito.** Lo que no está en `docs/requirements.md`
+   se pregunta; no se inventa.
+2. **La spec va por delante del código.** Si a mitad de una tarea la spec resulta estar mal, se para, se
+   propone el cambio y se sigue cuando el usuario lo aprueba.
+3. **Los tests van antes que el código.** Los escribe el agente, también cuando el código lo escribe el
+   usuario, y cada uno cita su requisito.
+4. **Las invariantes de `docs/domain.md` no se rompen nunca.** Cada una la hace cumplir un solo archivo
+   del engine, y nadie más la reimplementa.
+5. **El agente no cierra su propia tarea:** la cierra el OK del usuario.
+6. **Nunca se commitea en `main`.** Todo va en una rama y entra por una PR (sección Git).
+7. **La interfaz es ReDesign:** clases `re-*` para los componentes, Tailwind solo para el layout, y
+   `node_modules/re-design` no se edita ni se copia. Si falta algo, se anota como Propuesta en el doc del
+   producto en ReDesign y se avisa.
+8. **Ningún texto visible escrito en el código:** todo sale de Transloco.
 
-- Marca: `re-design/brands/__SLUG__.css`
+## Antes de…
+
+| Antes de… | Lee |
+|---|---|
+| Empezar o retomar | La salida de `npm run status` (sale sola al abrir la sesión) |
+| Tocar interfaz | `node_modules/re-design/AGENTS.md` y `node_modules/re-design/docs/products/__SLUG__.md` |
+| Escribir TypeScript | [docs/standards/code.md](docs/standards/code.md) |
+| Escribir un componente, una plantilla o un servicio | [docs/standards/angular.md](docs/standards/angular.md) |
+| Escribir o revisar un test | [docs/standards/testing/README.md](docs/standards/testing/README.md) y el archivo de su capa |
+| Commitear, abrir una PR o publicar | La sección Git de abajo |
+| Dar algo por terminado | `npm run check` en verde (build, lint, lint:design, lint:i18n y tests) |
+
+- Marca: `re-design/brands/__SLUG__.css`.
 - Excepciones de diseño: las de `docs/products/__SLUG__.md` en ReDesign. Ninguna más.
 
 ## Flujo de trabajo
 
-Se trabaja con spec-driven development. El proceso vive en estos archivos; las skills del plugin `re-sdd` (repo ReSkills) son
-atajos para seguirlo.
+Se trabaja con spec-driven development. El proceso vive en estos archivos; las skills del plugin `re-sdd`
+(repo ReSkills) son atajos para seguirlo.
 
 | Qué | Dónde |
 |---|---|
@@ -32,100 +53,36 @@ atajos para seguirlo.
 | Slices y su estado | `docs/roadmap.md` |
 | Spec, tareas y verificación de cada slice | `docs/specs/Sxx-nombre/` |
 
-Reglas:
-
-- **Nada de código sin tarea, y nada de tarea sin requisito.** Si algo no está en un requisito, se
-  pregunta; no se inventa.
-- **La spec va por delante del código.** Si a mitad de una tarea la spec resulta estar mal, se para, se
-  propone el cambio y se sigue cuando el usuario lo aprueba.
-- `requirements.md`, `domain.md` y `architecture.md` describen cómo es el producto **hoy**. Un slice
-  cerrado queda como historia: no se reescribe.
-- **Tests:** los escribe el agente, a partir de la spec y **antes** que el código, también cuando el
-  código lo escribe el usuario. Cada test cita su requisito en el nombre (`docs/testing.md`).
-- **Una tarea, un commit:** `tipo(ámbito): resumen [Sxx-Tn]`, con los tipos de Conventional Commits.
+- **Cómo es el producto hoy:** lo describen `requirements.md`, `domain.md` y `architecture.md`. Un slice
+  cerrado queda como historia y no se reescribe. Un requisito no se borra: se retira, conservando su ID.
 - **Estados de una tarea:** ⬜ pendiente · 🔨 en curso · 🔍 por revisar · ✅ hecha · ❌ con hallazgos.
-  El agente **no cierra su propia tarea**: la cierra el OK del usuario. Las tareas del usuario las
-  cierra la verificación (`review.md`).
-- Al parar a mitad de un slice, se escribe «Dónde lo dejé» al final de su `tasks.md`.
-- Lo que solo es una prueba (un spike) va en una rama `spike/…` que se tira. Lo único que se conserva
-  es la respuesta, en `architecture.md`.
+  - Las tareas del agente las cierra el OK del usuario.
+  - Las del usuario, la verificación (`review.md`).
+- **Al parar a mitad de un slice,** se escribe «Dónde lo dejé» al final de su `tasks.md`.
 
 ## Arquitectura
 
-Estructura, capas y registro de decisiones: [docs/architecture.md](docs/architecture.md). Si una
-decisión deja de servir, se cambia allí primero y después en el código.
+El detalle y las decisiones están en [docs/architecture.md](docs/architecture.md). Si una decisión deja de
+servir, se cambia allí primero y después en el código.
 
-- **`src/engine/`** es TypeScript puro y plano: sin Angular ni `chrome.*`, un archivo por
-  responsabilidad, sin barrels. Recibe datos y devuelve datos (o acciones); el lint lo comprueba.
-- **`src/entrypoints/background.ts`** conecta Chrome con el engine y ejecuta lo que el engine decide.
+- **`src/engine/`:** TypeScript puro, sin Angular ni `chrome.*`, un archivo por responsabilidad y sin
+  barrels. Recibe datos y devuelve datos (o acciones). El lint lo comprueba.
+- **`src/entrypoints/background.ts`:** conecta Chrome con el engine y ejecuta lo que el engine decide.
   No contiene reglas.
-- **El estado de la UI** son signals de las vistas; lo que guarda el producto vive en stores.
-- **Piezas de la UI:** item (solo pinta y emite) → container (resuelve las operaciones de sus items) →
-  vista → shell. Las capas (toast, confirmación, editor) se piden a un servicio.
-- **El host del componente es la raíz del bloque** (`re-tree__row`, `re-tree__group`…): ReDesign usa
-  selectores entre hermanos.
+- **`src/app/`:** el popup.
+  - Piezas: item → container → vista → shell.
+  - El estado de la interfaz son signals de las vistas; lo que el producto guarda vive en stores.
 
-## Código
+## Git
 
-- Nombres y comentarios en **inglés**. Modelos y campos no obvios, y métodos cuyo nombre no basta,
-  documentados con JSDoc en inglés.
-- **Ningún texto visible escrito en la plantilla:** todo sale de Transloco (`src/assets/i18n/es.json` y
-  `en.json`, un espacio de nombres por componente; las dos con las mismas claves, `npm run lint:i18n`).
-  El engine no traduce: devuelve datos (`kind`, `domain`) y la interfaz elige el texto.
+La norma completa está en el plugin `re-git` de ReSkills
+([norma.md](https://github.com/LimbersMay/ReSkills/blob/main/plugins/re-git/skills/commit/references/norma.md)),
+y la aplican sus skills: `/re-git:commit` para commitear y `/re-git:ship` para cerrar la rama. En corto:
 
-## Código limpio
-
-Vale para todo lo que se escribe en `src/`. Revisa tu propio código con esta lista antes de entregarlo,
-también lo que copies de un mock (el mock es una referencia visual, no un modelo de código). Lo que se
-puede comprobar a máquina lo comprueba `npm run lint`; el resto, la verificación.
-
-- **La plantilla se lee sola; el TS guarda las decisiones.** Una condición simple se escribe en el HTML.
-  Un `computed` existe solo si su nombre explica algo que la expresión no dice: llamar `hasEntries` a
-  `entries().length > 0` no aclara nada y obliga a ir al TS para descubrir que era eso. El exceso
-  contrario tampoco vale: la lógica de verdad no se escribe en el HTML.
-
-  **Se queda en la plantilla** (no crees un `computed` para esto):
-  - Leer un input, un signal o un campo: `@if (rules().canLock)`, `@if (item().pinned)`.
-  - Una comparación o una negación sobre un solo valor: `entries().length === 0`, `total() === 0`,
-    `!tag()`, `expiresAt() !== null`.
-  - Un ternario simple entre dos valores fijos que aparece una sola vez:
-    `[name]="locked() ? 'lucideLock' : 'lucideLockOpen'"`.
-  - `@if (valor(); as v)` para nombrar un valor y reutilizarlo dentro del bloque.
-
-  **Va al TS, como `computed`**, si cumple al menos una:
-  - Junta dos o más condiciones y su nombre dice la regla: `isPartlySelected` (hay selección y no es
-    total), `needsSelectionToLock`.
-  - Es una regla del producto o llama al engine.
-  - Es una comparación o una combinación que también usan otros `computed` o métodos del TS. Si solo la
-    usa el TS, es `private`; si además la lee la plantilla, la plantilla usa ese mismo `computed` en vez
-    de repetir la expresión. Leer un campo no cuenta: `config().isEnabled` se escribe tal cual también
-    en el TS, sin `computed` intermedio.
-  - Un ternario o una combinación aparecería en más de un sitio de la plantilla (en el texto y en el
-    `title`). Leer el mismo campo o hacer la misma comparación simple varias veces no cuenta.
-  - Elige una clave de traducción o lleva parámetros: `translateSignal`, con la clave en un `computed`.
-    Las claves fijas se quedan en la plantilla con `t()`.
-  - Lo que depende de un `kind` sale de un mapa tipado (regla siguiente). Se expone **el objeto entero**
-    como un `computed` (`rules = computed(() => RULES[this.scope()])`) y la plantilla lee sus campos
-    (`rules().canLock`). No se crea un `computed` por campo.
-
-  **Nunca en la plantilla:** ternarios anidados, claves de traducción armadas concatenando, llamadas a
-  funciones del engine, y cálculos de varios pasos (`filter`, `map`, `reduce`).
-
-  **Prueba rápida antes de crear un `computed`:** si es `computed(() => <una expresión que ya se lee
-  sola>)` y nadie más en el TS lo usa, no lo crees: escribe la expresión en la plantilla.
-- **Mapas tipados, no cadenas de `if`:** lo que depende de un `kind` va en un `Record<Kind, …>`, así un
-  caso nuevo no compila hasta tener su valor.
-- **Cada regla en su sitio:** cada regla del producto vive en un solo archivo del engine
-  (`architecture.md` dice cuál); un componente no reimplementa reglas de negocio.
-- **Sin andamios:** nada de copias locales que imiten un store, reglas provisionales ni `console.*`. Lo
-  que aún no tiene su pieza real no se conecta.
-- **Una fuente de verdad:** lo derivado se calcula, no se guarda en otro signal ni se copia: un
-  `computed`, o la expresión en la plantilla si es simple.
-- **Sin código muerto:** ni imports, miembros, inputs u outputs sin usar.
-- **Nombres que dicen qué es** (booleanos que se leen como pregunta: `isNested`); comentarios con el
-  porqué, no el qué. Sin `any` ni `!`.
-- Antes de terminar: `npm run check` en verde (build, lint, lint:design, lint:i18n y tests).
-
-## Testing
-
-OBLIGATORIO ANTES DE ESCRIBIR CUALQUIER TEST: leer [docs/testing.md](docs/testing.md).
+- **Ramas:** `slice/S03-nombre` por slice, `docs/…`, `fix/…`, `chore/…` y `spike/…` (estas no se
+  fusionan nunca). Los hooks de `.githooks/` impiden commitear en `main` y comprueban el título.
+- **Commit:** `tipo(ámbito): resumen [Sxx-Tn]`, en español y en presente. El cuerpo dice el porqué. El pie
+  lleva `Requisitos: PAU-03` y `Decisiones: P-12` cuando aplican. Un commit por tarea, con sus tests.
+- **PR:** con título `S03 · Nombre del slice`, se fusiona con *merge commit* cuando el CI está en verde y
+  el usuario da el OK.
+- **Versión:** tag `vX.Y.Z` al cerrar un hito del roadmap, con su entrada en `CHANGELOG.md`.
