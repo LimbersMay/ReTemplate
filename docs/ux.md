@@ -1,7 +1,7 @@
 # __PRODUCT__ · Interfaz
 
 <!-- sdd:pendiente -->
-> Lo redacta `sdd-design` a partir de los requisitos y del material de `docs/inbox/`. El mock es
+> Lo redacta `/sdd:design` a partir de los requisitos y del material de `docs/inbox/`. El mock es
 > referencia de contenido; el aspecto lo da ReDesign.
 
 ## Ventana

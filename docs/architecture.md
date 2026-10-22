@@ -1,7 +1,7 @@
 # __PRODUCT__ · Arquitectura
 
 <!-- sdd:pendiente -->
-> Lo redacta `sdd-design` a partir de los requisitos. Si una decisión deja de servir, se cambia aquí
+> Lo redacta `/sdd:design` a partir de los requisitos. Si una decisión deja de servir, se cambia aquí
 > primero y después en el código.
 
 ## Contextos de ejecución

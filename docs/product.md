@@ -1,7 +1,7 @@
 # __PRODUCT__ · Producto
 
 <!-- sdd:pendiente -->
-> Lo redacta `sdd-discover` a partir de `docs/inbox/` y lo aprueba el usuario. El marcador de arriba se
+> Lo redacta `/sdd:discover` a partir de `docs/inbox/` y lo aprueba el usuario. El marcador de arriba se
 > quita cuando está aprobado.
 
 ## Problema

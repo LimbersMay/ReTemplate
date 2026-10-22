@@ -19,7 +19,7 @@ git push -u origin docs/fase-0
 
 `npm install` activa los hooks de `.githooks/`, que impiden commitear en `main`: por eso la
 inicialización va ya en la rama de la fase 0. Esa rama sigue con el descubrimiento y el diseño, y se
-fusiona con una PR (`/re-git:ship`) cuando el usuario aprueba los documentos.
+fusiona con una PR (`/git:ship`) cuando el usuario aprueba los documentos.
 
 `--slug` es opcional: por defecto, el nombre en minúsculas (`renombre`). Es el de la marca de ReDesign
 (`re-design/brands/<slug>.css`) y el de su doc de producto. Si la marca aún no existe, `init` avisa:
@@ -36,11 +36,11 @@ hay que darla de alta en ReDesign antes de tocar interfaz.
 1. Copia el material de partida (requisitos, mocks) en `docs/inbox/`.
 2. Instala las skills, una vez por máquina:
    ```text
-   /plugin marketplace add LimbersMay/ReSkills
-   /plugin install re-sdd@re-skills
-   /plugin install re-git@re-skills
+   /plugin marketplace add LimbersMay/skills
+   /plugin install sdd@limbersmay
+   /plugin install git@limbersmay
    ```
-3. Ejecuta `/re-sdd:sdd-discover`.
+3. Ejecuta `/sdd:discover`.
 
 ## Qué trae
 
