@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Where are we? Printed at the start of every Claude Code session (.claude/settings.json › SessionStart)
-// and by `npm run status`. Reads only docs/: the phase 0 markers, docs/roadmap.md and the current
-// tasks.md. It never fails: a broken status must not block a session.
+// and by `npm run status`. Reads the git branch, docs/ (the phase 0 markers, docs/roadmap.md and the
+// current tasks.md) and the known defects of the specs. It never fails: a broken status must not block a
+// session.
+import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -28,9 +30,34 @@ function section(text, title) {
   return lines.slice(start + 1, end === -1 ? undefined : end).join('\n').trim();
 }
 
+function git(...args) {
+  try {
+    return execFileSync('git', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch {
+    return null;
+  }
+}
+
+/** `it.fails` and `it.todo` left in the specs: each one is a known defect (docs/standards/testing). */
+function knownDefects() {
+  if (!existsSync('src')) return { fails: 0, todo: 0 };
+  const specs = readdirSync('src', { recursive: true })
+    .filter((file) => String(file).endsWith('.spec.ts'))
+    .map((file) => read(join('src', String(file))));
+  const count = (pattern) => specs.reduce((sum, text) => sum + (text.match(pattern)?.length ?? 0), 0);
+  return { fails: count(/\bit\.fails\(/g), todo: count(/\bit\.todo\(/g) };
+}
+
 try {
   if (!existsSync('docs')) process.exit(0);
   const out = [];
+
+  const branch = git('branch', '--show-current');
+  if (branch !== null) {
+    const changed = (git('status', '--porcelain') ?? '').split('\n').filter(Boolean).length;
+    out.push(`Rama: ${branch || '(sin rama)'}${changed > 0 ? ` · ${changed} archivos sin commitear` : ''}`);
+    if (branch === 'main' && changed > 0) out.push('  En main no se commitea: /re-git:commit los lleva a una rama');
+  }
 
   const pending = PHASE_0.filter((file) => read(join('docs', file)).includes(PENDING));
   if (pending.length > 0) {
@@ -59,6 +86,11 @@ try {
     const handoff = section(tasks, 'Dónde lo dejé');
     if (handoff) out.push(`Dónde lo dejé:\n${handoff}`);
     if (!folder) out.push(`Siguiente: /re-sdd:sdd-slice ${current[0]}`);
+  }
+
+  const defects = knownDefects();
+  if (defects.fails + defects.todo > 0) {
+    out.push(`Defectos conocidos: ${defects.fails} it.fails · ${defects.todo} it.todo (los // BUG: de los specs)`);
   }
 
   if (out.length > 0) process.stdout.write(`${out.join('\n')}\n`);
