@@ -35,11 +35,11 @@ try {
   const pending = PHASE_0.filter((file) => read(join('docs', file)).includes(PENDING));
   if (pending.length > 0) {
     out.push(`Fase 0 · pendientes: ${pending.join(', ')}`);
-    const discovery = read('docs/discovery.md');
-    if (discovery) out.push(`Descubrimiento en curso: docs/discovery.md`);
-    if (pending.includes('product.md') || pending.includes('requirements.md')) {
-      out.push('Siguiente: /re-sdd:sdd-discover');
-    }
+    const discovering = pending.includes('product.md') || pending.includes('requirements.md');
+    if (discovering && read('docs/discovery.md')) out.push('Descubrimiento en curso: docs/discovery.md');
+    if (discovering) out.push('Siguiente: /re-sdd:sdd-discover');
+    else if (pending.some((file) => file !== 'roadmap.md')) out.push('Siguiente: /re-sdd:sdd-design');
+    else out.push('Siguiente: /re-sdd:sdd-plan');
   }
 
   const slices = tableRows(read('docs/roadmap.md'));
