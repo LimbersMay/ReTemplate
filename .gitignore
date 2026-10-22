@@ -45,3 +45,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Local tools and secrets: never committed (AGENTS.md › Git)
+.claude.json
+.env*

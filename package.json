@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "init": "node scripts/init.mjs",
+    "prepare": "node scripts/git-hooks.mjs",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
