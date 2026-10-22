@@ -3,7 +3,7 @@
 Un producto nuevo parte de la última versión. Un producto que ya existe no se actualiza solo: lo que le
 interese de una versión se copia a mano, con su propia PR.
 
-## Sin publicar
+## 0.1.0 · 2026-10-22
 
 - `AGENTS.md` corto: lo que no se negocia, una tabla «Antes de…» con qué leer, y la norma de git en
   resumen. Las normas completas pasan a `docs/standards/`.
