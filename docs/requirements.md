@@ -22,8 +22,8 @@ se observa, no cómo se programa. Los IDs no se reutilizan: un requisito retirad
 motivo.
 
 ```text
-### PAU-01 · Inactividad
-MIENTRAS el equipo esté en uso, __PRODUCT__ DEBE sumar inactividad a cada pestaña que no sea la activa de su ventana.
+### ABC-01 · Título corto
+CUANDO <evento>, __PRODUCT__ DEBE <comportamiento observable>.
 Prioridad: Must · Origen: P-02 · Slice: S01
 ```
 
