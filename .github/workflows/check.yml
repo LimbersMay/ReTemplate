@@ -21,7 +21,7 @@ jobs:
         if: ${{ env.REDESIGN_TOKEN != '' }}
         run: git config --global url."https://x-access-token:${REDESIGN_TOKEN}@github.com/".insteadOf "https://github.com/"
       - run: npm ci
-      # Only in re-template itself: the placeholders need a real brand to build, so CI tests init too.
+      # Only in ReTemplate itself: the placeholders need a real brand to build, so CI tests init too.
       - name: Initialize the template
         if: ${{ hashFiles('TEMPLATE.md') != '' }}
         run: node scripts/init.mjs --name ReSession --description "Template check" --slug resession

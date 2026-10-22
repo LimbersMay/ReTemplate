@@ -1,4 +1,4 @@
-# re-template
+# ReTemplate
 
 Plantilla de las extensiones de la suite Re: Angular 20 (standalone, zoneless) · WXT (MV3) · Vitest ·
 Testing Library · Transloco (es/en) · Lucide · Tailwind v4 · ReDesign · ESLint · el esqueleto de docs de
@@ -7,12 +7,12 @@ spec-driven development. `npm run init` borra este archivo.
 ## Crear un producto
 
 ```bash
-gh repo create LimbersMay/ReNombre --private --template LimbersMay/re-template --clone
+gh repo create LimbersMay/ReNombre --private --template LimbersMay/ReTemplate --clone
 cd ReNombre
 npm install
 npm run init -- --name ReNombre --description "Una frase: qué hace y para quién."
 npm run check
-git commit -am "chore: inicializa ReNombre desde re-template"
+git commit -am "chore: inicializa ReNombre desde ReTemplate"
 ```
 
 `--slug` es opcional: por defecto, el nombre en minúsculas (`renombre`). Es el de la marca de ReDesign
@@ -30,8 +30,8 @@ hay que darla de alta en ReDesign antes de tocar interfaz.
 1. Copia el material de partida (requisitos, mocks) en `docs/inbox/`.
 2. Instala las skills, una vez por máquina:
    ```text
-   /plugin marketplace add LimbersMay/re-sdd
-   /plugin install re-sdd@re-sdd
+   /plugin marketplace add LimbersMay/ReSkills
+   /plugin install re-sdd@re-skills
    ```
 3. Ejecuta `/re-sdd:sdd-discover`.
 

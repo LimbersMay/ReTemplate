@@ -18,7 +18,7 @@ Este producto sigue **ReDesign** (`node_modules/re-design`, versión fijada en `
 
 ## Flujo de trabajo
 
-Se trabaja con spec-driven development. El proceso vive en estos archivos; las skills de `re-sdd` son
+Se trabaja con spec-driven development. El proceso vive en estos archivos; las skills del plugin `re-sdd` (repo ReSkills) son
 atajos para seguirlo.
 
 | Qué | Dónde |
