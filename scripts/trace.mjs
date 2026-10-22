@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Requirement → tests. Reads the IDs of docs/requirements.md (`### PAU-01 · …`) and finds the specs whose
-// describe/it names cite them (docs/testing.md › Trazabilidad).
+// describe/it names cite them (docs/standards/testing/README.md › Trazabilidad).
 //
 //   npm run trace                          every requirement
 //   npm run trace -- --ids PAU-01,PRT-05   only these (what sdd-verify uses for a slice)
