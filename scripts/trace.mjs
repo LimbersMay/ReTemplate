@@ -25,7 +25,11 @@ if (!existsSync('docs/requirements.md')) {
 
 const requirements = [];
 let current;
+let inFence = false;
 for (const line of readFileSync('docs/requirements.md', 'utf8').split(/\r?\n/)) {
+  // The format section shows an example requirement inside a code block: it is not one.
+  if (line.startsWith('```')) inFence = !inFence;
+  if (inFence) continue;
   const heading = REQUIREMENT.exec(line);
   if (heading) {
     current = { id: heading[1], title: heading[2], priority: '—', tests: [] };
