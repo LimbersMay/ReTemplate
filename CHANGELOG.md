@@ -3,6 +3,11 @@
 Un producto nuevo parte de la última versión. Un producto que ya existe no se actualiza solo: lo que le
 interese de una versión se copia a mano, con su propia PR.
 
+## 0.1.1 · 2026-10-22
+
+- `npm run status` recomienda `/re-sdd:sdd-design` para toda la fase 0 después del descubrimiento:
+  `sdd-plan` se fundió en `sdd-design` (ReSkills 0.2.2).
+
 ## 0.1.0 · 2026-10-22
 
 - `AGENTS.md` corto: lo que no se negocia, una tabla «Antes de…» con qué leer, y la norma de git en

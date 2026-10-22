@@ -65,8 +65,7 @@ try {
     const discovering = pending.includes('product.md') || pending.includes('requirements.md');
     if (discovering && read('docs/discovery.md')) out.push('Descubrimiento en curso: docs/discovery.md');
     if (discovering) out.push('Siguiente: /re-sdd:sdd-discover');
-    else if (pending.some((file) => file !== 'roadmap.md')) out.push('Siguiente: /re-sdd:sdd-design');
-    else out.push('Siguiente: /re-sdd:sdd-plan');
+    else out.push('Siguiente: /re-sdd:sdd-design');
   }
 
   const slices = tableRows(read('docs/roadmap.md'));
