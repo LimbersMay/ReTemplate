@@ -39,8 +39,9 @@ normas completas viven en `docs/standards/` y se leen cuando tocan.
 
 ## Flujo de trabajo
 
-Se trabaja con spec-driven development. El proceso vive en estos archivos; las skills del plugin `re-sdd`
-(repo ReSkills) son atajos para seguirlo.
+Se trabaja con spec-driven development. El proceso vive en estos archivos; las skills del plugin `sdd`
+(marketplace `limbersmay`, repo [skills](https://github.com/LimbersMay/skills)) son atajos para seguirlo
+y leen las piezas del proyecto en la tabla «Antes de…».
 
 | Qué | Dónde |
 |---|---|
@@ -75,9 +76,9 @@ servir, se cambia allí primero y después en el código.
 
 ## Git
 
-La norma completa está en el plugin `re-git` de ReSkills
-([norma.md](https://github.com/LimbersMay/ReSkills/blob/main/plugins/re-git/skills/commit/references/norma.md)),
-y la aplican sus skills: `/re-git:commit` para commitear y `/re-git:ship` para cerrar la rama. En corto:
+La norma completa está en el plugin `git`
+([norma.md](https://github.com/LimbersMay/skills/blob/main/plugins/git/skills/commit/references/norma.md)),
+y la aplican sus skills: `/git:commit` para commitear y `/git:ship` para cerrar la rama. En corto:
 
 - **Ramas:** `slice/S03-nombre` por slice, `docs/…`, `fix/…`, `chore/…` y `spike/…` (estas no se
   fusionan nunca). Los hooks de `.githooks/` impiden commitear en `main` y comprueban el título.

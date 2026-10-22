@@ -1,7 +1,7 @@
 # __PRODUCT__ · Requisitos
 
 <!-- sdd:pendiente -->
-> Lo redacta `sdd-discover` y lo aprueba el usuario. Describe cómo se comporta el producto **hoy**: un
+> Lo redacta `/sdd:discover` y lo aprueba el usuario. Describe cómo se comporta el producto **hoy**: un
 > slice que cambia un comportamiento cambia también este archivo.
 
 ## Formato

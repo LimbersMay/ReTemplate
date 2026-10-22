@@ -1,7 +1,7 @@
 # __PRODUCT__ · Dominio
 
 <!-- sdd:pendiente -->
-> Lo redacta `sdd-design` a partir de los requisitos. La interfaz y el código usan las palabras del
+> Lo redacta `/sdd:design` a partir de los requisitos. La interfaz y el código usan las palabras del
 > glosario, y solo esas.
 
 ## Glosario

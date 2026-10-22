@@ -3,6 +3,14 @@
 Un producto nuevo parte de la última versión. Un producto que ya existe no se actualiza solo: lo que le
 interese de una versión se copia a mano, con su propia PR.
 
+## Sin publicar
+
+- Las skills se llaman como en skills 0.3.0: `/sdd:discover`, `/sdd:design`, `/sdd:slice`,
+  `/git:commit`, `/git:ship`. Lo cambian `npm run status`, `init`, el hook `pre-commit`, `AGENTS.md`,
+  `TEMPLATE.md` (instalar desde el marketplace `limbersmay`) y los marcadores de `docs/`. `roadmap.md` y
+  `specs/README.md` ya no nombran `sdd-plan` ni `sdd-guide`, que se fundieron en `/sdd:design` y
+  `/sdd:work`.
+
 ## 0.1.1 · 2026-10-22
 
 - `npm run status` recomienda `/re-sdd:sdd-design` para toda la fase 0 después del descubrimiento:
