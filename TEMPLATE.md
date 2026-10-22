@@ -10,10 +10,16 @@ spec-driven development. `npm run init` borra este archivo.
 gh repo create LimbersMay/ReNombre --private --template LimbersMay/ReTemplate --clone
 cd ReNombre
 npm install
+git switch -c docs/fase-0
 npm run init -- --name ReNombre --description "Una frase: qué hace y para quién."
 npm run check
 git commit -am "chore: inicializa ReNombre desde ReTemplate"
+git push -u origin docs/fase-0
 ```
+
+`npm install` activa los hooks de `.githooks/`, que impiden commitear en `main`: por eso la
+inicialización va ya en la rama de la fase 0. Esa rama sigue con el descubrimiento y el diseño, y se
+fusiona con una PR (`/re-git:ship`) cuando el usuario aprueba los documentos.
 
 `--slug` es opcional: por defecto, el nombre en minúsculas (`renombre`). Es el de la marca de ReDesign
 (`re-design/brands/<slug>.css`) y el de su doc de producto. Si la marca aún no existe, `init` avisa:
@@ -32,6 +38,7 @@ hay que darla de alta en ReDesign antes de tocar interfaz.
    ```text
    /plugin marketplace add LimbersMay/ReSkills
    /plugin install re-sdd@re-skills
+   /plugin install re-git@re-skills
    ```
 3. Ejecuta `/re-sdd:sdd-discover`.
 
@@ -39,13 +46,14 @@ hay que darla de alta en ReDesign antes de tocar interfaz.
 
 | Pieza | Para qué |
 |---|---|
-| `AGENTS.md` (+ `CLAUDE.md`, `GEMINI.md`) | Las reglas para agentes: diseño, flujo SDD, arquitectura, código limpio |
+| `AGENTS.md` (+ `CLAUDE.md`, `GEMINI.md`) | Lo que no se negocia y qué leer antes de cada cosa; se carga en cada sesión |
 | `docs/` | El esqueleto de SDD, con `<!-- sdd:pendiente -->` en lo que falta redactar |
-| `docs/testing.md` | El estándar de tests (nacido en ReSession) |
-| `eslint.config.mjs` | Lo que se puede comprobar a máquina de «Código limpio»; el engine no puede importar Angular ni usar `chrome` |
+| `docs/standards/` | Las normas: `code.md` (TypeScript), `angular.md` y `testing/` (un archivo por capa y la checklist) |
+| `eslint.config.mjs` | Lo que se puede comprobar a máquina de `docs/standards/`, con información de tipos; el engine no puede importar Angular ni usar `chrome` |
+| `.githooks/` + `scripts/commit-msg.mjs` | Nada de commits en `main` y títulos con la norma de git; `npm install` los activa |
 | `scripts/lint-i18n.mjs` | `es.json` y `en.json` con las mismas claves |
 | `scripts/trace.mjs` | Requisitos sin test (`--strict` falla si falta alguno Must) |
-| `scripts/status.mjs` | Resumen del proyecto; es el hook `SessionStart` de `.claude/settings.json` |
+| `scripts/status.mjs` | Rama, fase, slice, tareas y defectos conocidos; es el hook `SessionStart` de `.claude/settings.json` |
 | `src/testing/` | `render()`, Transloco de pruebas y setup global |
 | `.github/workflows/check.yml` | `npm run check` en cada push y PR |
 
