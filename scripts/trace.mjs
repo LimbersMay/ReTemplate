@@ -38,7 +38,10 @@ for (const line of readFileSync('docs/requirements.md', 'utf8').split(/\r?\n/)) 
   }
   const priority = current && PRIORITY.exec(line);
   if (priority) current.priority = priority[1];
+  // A retired requirement keeps its ID (IDs are never reused) but no longer needs tests.
+  if (current && line.startsWith('Retirado:')) current.retired = true;
 }
+const active = requirements.filter((r) => !r.retired);
 
 function specs(dir) {
   return readdirSync(dir).flatMap((entry) => {
@@ -48,7 +51,7 @@ function specs(dir) {
   });
 }
 
-const byId = new Map(requirements.map((r) => [r.id, r]));
+const byId = new Map(active.map((r) => [r.id, r]));
 const unknown = new Set();
 for (const file of specs('src')) {
   const source = readFileSync(file, 'utf8');
@@ -62,7 +65,7 @@ for (const file of specs('src')) {
 }
 
 const only = arg('ids')?.split(',').map((id) => id.trim());
-const shown = only ? requirements.filter((r) => only.includes(r.id)) : requirements;
+const shown = only ? active.filter((r) => only.includes(r.id)) : active;
 const rows = shown.map(
   (r) =>
     `${r.tests.length > 0 ? '✅' : '⬜'} ${r.id.padEnd(7)} ${r.priority.padEnd(6)} ${String(r.tests.length).padStart(2)} test(s)  ${r.title}`,
@@ -71,7 +74,7 @@ const covered = shown.filter((r) => r.tests.length > 0).length;
 process.stdout.write(`trace · ${covered}/${shown.length} requisitos con tests\n${rows.join('\n')}\n`);
 if (unknown.size > 0) {
   process.stdout.write(
-    `\nIDs citados en tests que no existen en requirements.md:\n  ${[...unknown].join('\n  ')}\n`,
+    `\nIDs citados en tests que no existen en requirements.md o están retirados:\n  ${[...unknown].join('\n  ')}\n`,
   );
 }
 
