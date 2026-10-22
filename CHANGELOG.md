@@ -3,7 +3,7 @@
 Un producto nuevo parte de la última versión. Un producto que ya existe no se actualiza solo: lo que le
 interese de una versión se copia a mano, con su propia PR.
 
-## Sin publicar
+## 0.1.2 · 2026-10-22
 
 - Las skills se llaman como en skills 0.3.0: `/sdd:discover`, `/sdd:design`, `/sdd:slice`,
   `/git:commit`, `/git:ship`. Lo cambian `npm run status`, `init`, el hook `pre-commit`, `AGENTS.md`,
