@@ -5,7 +5,7 @@ import { Translation, TranslocoLoader } from '@jsverse/transloco';
 /** Loads a language dictionary from `assets/i18n/<lang>.json`, next to the popup. */
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   getTranslation(lang: string) {
     return this.http.get<Translation>(`assets/i18n/${lang}.json`);

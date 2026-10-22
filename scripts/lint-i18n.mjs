@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Every dictionary has exactly the keys of the default one, and no value is empty (AGENTS.md › Código).
+// Every dictionary has exactly the keys of the default one, and no value is empty (docs/standards/angular.md › Plantillas).
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
